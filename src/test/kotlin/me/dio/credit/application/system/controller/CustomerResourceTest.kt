@@ -47,11 +47,10 @@ class CustomerResourceTest {
 
   @Test
   fun `should create a customer and return 201 status`() {
-    //given
+
     val customerDto: CustomerDto = builderCustomerDto()
     val valueAsString: String = objectMapper.writeValueAsString(customerDto)
-    //when
-    //then
+
     mockMvc.perform(
       MockMvcRequestBuilders.post(URL)
         .contentType(MediaType.APPLICATION_JSON)
@@ -71,12 +70,11 @@ class CustomerResourceTest {
 
   @Test
   fun `should not save a customer with same CPF and return 409 status`() {
-    //given
+
     customerRepository.save(builderCustomerDto().toEntity())
     val customerDto: CustomerDto = builderCustomerDto()
     val valueAsString: String = objectMapper.writeValueAsString(customerDto)
-    //when
-    //then
+
     mockMvc.perform(
       MockMvcRequestBuilders.post(URL)
         .contentType(MediaType.APPLICATION_JSON)
@@ -96,11 +94,10 @@ class CustomerResourceTest {
 
   @Test
   fun `should not save a customer with empty firstName and return 400 status`() {
-    //given
+
     val customerDto: CustomerDto = builderCustomerDto(firstName = "")
     val valueAsString: String = objectMapper.writeValueAsString(customerDto)
-    //when
-    //then
+
     mockMvc.perform(
       MockMvcRequestBuilders.post(URL)
         .content(valueAsString)
@@ -120,10 +117,9 @@ class CustomerResourceTest {
 
   @Test
   fun `should find customer by id and return 200 status`() {
-    //given
+
     val customer: Customer = customerRepository.save(builderCustomerDto().toEntity())
-    //when
-    //then
+
     mockMvc.perform(
       MockMvcRequestBuilders.get("$URL/${customer.id}")
         .accept(MediaType.APPLICATION_JSON)
